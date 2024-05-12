@@ -1,4 +1,4 @@
-import { setLastName } from "../slices/user/user-slice";
+import { setLastName } from "../../slices/user/user-slice";
 import { useDispatch } from "react-redux";
 const InputLastName = () => {
   const dispacth = useDispatch();

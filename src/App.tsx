@@ -1,9 +1,10 @@
-import User from "./components/User";
+import User from "./components/user/User";
 
 const App = () => {
   return (
     <div className="container">
       <User />
+      <hr />
     </div>
   );
 };

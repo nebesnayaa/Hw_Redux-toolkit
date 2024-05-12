@@ -7,7 +7,7 @@ const OutputFirstName = () => {
   return (
     <div className="input-field col s6">
       <div className="card-panel">
-        <span className="#7b1fa2 purple darken-2">{first_name}</span>
+        <span className="# white-text purple darken-2">{first_name}</span>
       </div>
     </div>
   );
