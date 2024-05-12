@@ -1,5 +1,7 @@
 import { setFirstName } from "../slices/user/user-slice";
-const InputFirstName = ({ props }: any) => {
+import { useDispatch } from "react-redux";
+const InputFirstName = () => {
+  const dispatch = useDispatch();
   return (
     <div className="input-field col s6">
       <input
@@ -7,7 +9,7 @@ const InputFirstName = ({ props }: any) => {
         type="text"
         className="validate"
         onChange={(e) => {
-          props(setFirstName(e.target.value));
+          dispatch(setFirstName(e.target.value));
         }}
       />
       <label htmlFor="first_name">First Name</label>
