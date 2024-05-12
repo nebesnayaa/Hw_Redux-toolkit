@@ -1,8 +1,13 @@
+import { useSelector } from "react-redux";
+
 const OutputFirstName = () => {
+  const first_name = useSelector((state: any) => {
+    return state.user.firstName;
+  });
   return (
     <div className="input-field col s6">
       <div className="card-panel">
-        <span className="#7b1fa2 purple darken-2">vot</span>
+        <span className="#7b1fa2 purple darken-2">{first_name}</span>
       </div>
     </div>
   );
