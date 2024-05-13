@@ -4,6 +4,7 @@ import { addTodo } from "../../slices/todos/todos-slice";
 import { v4 } from "uuid";
 import { TodoType } from "../../types/todo-type";
 import TodoList from "./TodoList";
+
 const InputTodo = () => {
   const dispatch = useDispatch();
   const [todo, setTodo] = useState<TodoType>({
@@ -11,14 +12,15 @@ const InputTodo = () => {
     title: "",
     isCompleted: true,
   });
-  //   const todo: TodoType = {
-  //     id: v4(),
-  //     title: title,
-  //     isCompleted: true,
-  //   };
 
   const addTodoHandler = (e: any) => {
     try {
+      setTodo((prevState) => ({
+        ...prevState,
+        id: v4(),
+        isCompleted: true,
+        title: todo.title,
+      }));
       dispatch(addTodo(todo));
       setTodo((prevState) => ({
         ...prevState,

@@ -1,7 +1,6 @@
-import { TodoType } from "../../types/todo-type";
+//import { TodoType } from "../../types/todo-type";
 
 const Todo = ({ props }: any) => {
-  console.log(props);
   return (
     <tr>
       <td>{props.id}</td>
