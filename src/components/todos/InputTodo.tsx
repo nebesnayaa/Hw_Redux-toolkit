@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { addTodo } from "../../slices/todos/todos-slice";
+import { addTodo, getTodos } from "../../slices/todos/todos-slice";
 import { v4 } from "uuid";
 import { TodoType } from "../../types/todo-type";
 import TodoList from "./TodoList";
@@ -49,6 +49,13 @@ const InputTodo = () => {
         onClick={todo.title.length > 0 ? addTodoHandler : () => {}}
       >
         <i className="material-icons left">chevron_right</i>Add
+      </a>
+      <a
+        className="waves-effect waves-light btn-large"
+        onClick={() => dispatch<any>(getTodos())}
+      >
+        <i className="material-icons left">chevron_right</i>Get Todos From
+        Server
       </a>
       <TodoList />
     </div>
