@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { TodoType } from "../../types/todo-type";
-import { act } from "react";
+
 const initialState: { todos: TodoType[] } = {
   todos: [],
 };
@@ -13,9 +13,10 @@ export const getTodos = createAsyncThunk(
       const res = await axios.get(
         import.meta.env.VITE_PATH_TO_SERVER + "/todos"
       );
-      return res.data as TodoType[]; // Ensure type safety
+      console.log(res.data);
+      return res.data as TodoType[];
     } catch (error: any) {
-      return rejectWithValue(error.message); // Handle errors
+      return rejectWithValue(error.message);
     }
   }
 );
