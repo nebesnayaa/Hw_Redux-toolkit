@@ -13,7 +13,6 @@ export const getTodos = createAsyncThunk(
       const res = await axios.get(
         import.meta.env.VITE_PATH_TO_SERVER + "/todos"
       );
-      console.log(res.data);
       return res.data as TodoType[];
     } catch (error: any) {
       return rejectWithValue(error.message);
@@ -29,9 +28,9 @@ export const postTodos = createAsyncThunk(
         import.meta.env.VITE_PATH_TO_SERVER + "/todos",
         newTodo
       );
-      return res.data as TodoType[]; // Ensure type safety
+      return res.data as TodoType;
     } catch (error: any) {
-      return rejectWithValue(error.message); // Handle errors
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -40,57 +39,31 @@ export const todosSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
-    addTodo: (state, action: { payload: TodoType }) => {
+    addTodo: (state, action) => {
       state.todos.push(action.payload);
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getTodos.pending, (state) => {
+      .addCase(getTodos.pending, () => {
         console.log("pending");
       })
       .addCase(getTodos.fulfilled, (state, action) => {
         console.log("success");
         state.todos = action.payload;
       })
-      .addCase(getTodos.rejected, (state, action) => {
+      .addCase(getTodos.rejected, () => {
         console.log("rejected");
+      })
+      .addCase(postTodos.fulfilled, (state, action) => {
+        console.log("post success");
+        state.todos.push(action.payload);
+      })
+      .addCase(postTodos.rejected, () => {
+        console.log("post rejected");
       });
   },
 });
 
 export const { addTodo } = todosSlice.actions;
 export default todosSlice.reducer;
-
-// export const todosSlice = createSlice({
-//   name: "todos",
-//   initialState,
-//   reducers: {
-//     setTodos: (state, action) => {
-//       state.todos = action.payload;
-//     },
-//     addArrayTodo: (state, action) => {
-//       state.todos = action.payload;
-//     },
-//     addTodo: (state, action) => {
-//       state.todos.push(action.payload);
-//     },
-//   },
-//   extraReducers: (builder) => {
-//     builder
-//       .addCase(getTodos.pending, (state) => {
-//         console.log("pending");
-//       })
-//       .addCase(getTodos.fulfilled, (state, action) => {
-//         console.log("success");
-
-//         state.todos = action.payload;
-//       })
-//       .addCase(getTodos.rejected, (state, action) => {
-//         console.log("failed");
-//       });
-//   },
-// });
-
-// export const { addTodo, setTodos, addArrayTodo } = todosSlice.actions;
-// export default todosSlice.reducer;

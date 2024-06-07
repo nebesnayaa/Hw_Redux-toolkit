@@ -1,5 +1,3 @@
-//import { TodoType } from "../../types/todo-type";
-
 const Todo = ({ props }: any) => {
   return (
     <tr>
@@ -15,4 +13,5 @@ const Todo = ({ props }: any) => {
     </tr>
   );
 };
+
 export default Todo;

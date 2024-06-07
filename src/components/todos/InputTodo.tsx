@@ -1,33 +1,35 @@
-import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { addTodo, getTodos } from "../../slices/todos/todos-slice";
+import { useAppDispatch } from "../../hooks";
+import { getTodos, postTodos } from "../../slices/todos/todos-slice";
 import { v4 } from "uuid";
 import { TodoType } from "../../types/todo-type";
 import TodoList from "./TodoList";
 
 const InputTodo = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [todo, setTodo] = useState<TodoType>({
     id: v4(),
     title: "",
     isCompleted: true,
   });
 
-  const addTodoHandler = (e: any) => {
+  const addTodoHandler = () => {
     try {
-      setTodo((prevState) => ({
-        ...prevState,
+      const newTodo = {
+        ...todo,
         id: v4(),
         isCompleted: true,
-        title: todo.title,
-      }));
-      dispatch(addTodo(todo));
+      };
+      dispatch(postTodos(newTodo));
       setTodo((prevState) => ({
         ...prevState,
         title: "",
       }));
-    } catch (error) {}
+    } catch (error) {
+      console.log("Error in adding the todo");
+    }
   };
+
   return (
     <div className="input-field col s6">
       <input
@@ -43,7 +45,6 @@ const InputTodo = () => {
         value={todo.title}
       />
       <label htmlFor="title">Todo Title</label>
-      {/* функція додавання todo працюватиме тільки тоді, коли заповнено title */}
       <a
         className="waves-effect waves-light btn-large"
         onClick={todo.title.length > 0 ? addTodoHandler : () => {}}
@@ -54,11 +55,11 @@ const InputTodo = () => {
         className="waves-effect waves-light btn-large"
         onClick={() => dispatch<any>(getTodos())}
       >
-        <i className="material-icons left">chevron_right</i>Get Todos From
-        Server
+        <i className="material-icons left">chevron_right</i>Get Todos From Server
       </a>
       <TodoList />
     </div>
   );
 };
+
 export default InputTodo;
